@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>廖梓汛的妙妙工具页🔧</title>
+  <style>
+    * {
+      margin:0; padding:0;
+      box-sizing:border-box;
+      font-family: Consolas, monospace;
+    }
+    body {
+      background:#000;
+      color:#0f0;
+      padding:2rem;
+      max-width:1000px;
+      margin:0 auto;
+      position:relative;
+    }
+    #matrix {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      z-index:-1;
+      background:#000;
+    }
+    h1 {
+      text-align:center;
+      color:#0f0;
+      margin-bottom:0.5rem;
+      text-shadow:0 0 10px #0f0;
+    }
+    .tip {
+      text-align:center;
+      margin-bottom:1rem;
+      color:#0f0;
+      font-weight:bold;
+      font-size: 18px;
+    }
+    .box {
+      background:rgba(0,30,0,0.8);
+      border:1px solid #0f0;
+      padding:1.5rem;
+      border-radius:8px;
+      margin-bottom:1rem;
+    }
+    .title {
+      font-size:1.3rem;
+      margin-bottom:1rem;
+      border-left:4px solid #0f0;
+      padding-left:10px;
+    }
+    .item {
+      margin:12px 0;
+    }
+    a {
+      color:#0f0;
+      font-weight:bold;
+      text-decoration:none;
+    }
+    .download {
+      display:inline-block;
+      background:#0f0;
+      color:#000;
+      padding:10px 20px;
+      border-radius:4px;
+      margin:8px 5px 0 0;
+      cursor:pointer;
+      font-weight:bold;
+    }
+    .game { display:inline-block; background:#0f0; color:#000; padding:4px 10px; border-radius:4px; margin-left:8px; }
+  </style>
+</head>
+<body>
+<canvas id="matrix"></canvas>
+<h1>廖梓汛的妙妙工具页🔧</h1>
+
+<div class="box">
+  <div class="title">🎮 游戏链接</div>
+  <div class="item">
+    <strong>游戏1：我的世界网页版【吱吱推荐】</strong>
+    <a href="https://classic.minecraft.net/" target="_blank" class="game">点击进入</a>
+  </div>
+  <div class="item">
+    <strong>游戏2：超级扫雷【吱吱推荐】</strong>
+    <a href="https://www.minesweeper.cn/" target="_blank" class="game">点击进入</a>
+  </div>
+  <div class="title">🧠 益智离线小游戏</div>
+  <div class="item"><strong>数独</strong><a href="https://sudoku.com/zh/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>2048</strong><a href="https://play2048.co/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>数织像素</strong><a href="https://nonograms.org/" target="_blank" class="game">点击进入</a></div>
+  <div class="title">🎮 经典怀旧小游戏</div>
+  <div class="item"><strong>俄罗斯方块</strong><a href="https://tetris.com/play-tetris" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>贪吃蛇</strong><a href="https://snake.googlemaps.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>打砖块</strong><a href="https://atari.com/arcade/breakout" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>乒乓对战</strong><a href="https://ponggame.org/" target="_blank" class="game">点击进入</a></div>
+  <div class="title">🧩 休闲解压小游戏</div>
+  <div class="item"><strong>见缝插针</strong><a href="https://aa-game.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>合成大西瓜</strong><a href="https://daxigua.love/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>连连看</strong><a href="https://lianliankan.online/" target="_blank" class="game">点击进入</a></div>
+</div>
+
+<div class="box">
+  <div class="tip">所有脚本请 👉 右键以管理员身份运行</div>
+  <div class="title">📥 吱吱专属机房脱控脚本（点击下载）</div>
+  <div class="download" onclick="downloadOriginal()">原版</div>
+  <div class="download" onclick="downloadAdvanced()">加强版（测试）</div>
+  <div class="download" onclick="downloadRestore()">恢复极域</div>
+</div>
+
+<script>
+const originalCode = `
+Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
+tskill st*
+taskkill /im studentmain.exe /f
+sc stop TDFileFilter 
+sc delete TDFileFilter 
+pause
+`;
+const advancedCode = `
+@echo off
+echo 吱吱专属极域脱控脚本（加强测试版）
+Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
+taskkill /im studentmain.exe /f /t
+taskkill /im stulock.exe /f /t
+taskkill /im tdstudent.exe /f /t
+sc stop TDFileFilter
+sc delete TDFileFilter
+sc stop TDSafeGuard
+sc delete TDSafeGuard
+echo 脱控完成！
+pause
+`;
+const restoreCode = `
+@echo off
+echo 恢复极域电子教室 - 重新连上教师机
+Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
+echo 启动极域主程序...
+start C:\Program Files (x86)\Mythware\极域电子教室学生端\StudentMain.exe
+start C:\Program Files\Mythware\极域电子教室学生端\StudentMain.exe
+echo 重新加载极域驱动...
+sc create TDFileFilter type= kernel binPath= "C:\Program Files (x86)\Mythware\极域电子教室学生端\TDFileFilter.sys"
+sc start TDFileFilter
+echo 恢复完成！如果还没恢复，重启电脑即可
+pause
+`;
+function downloadOriginal() {
+  const blob = new Blob([originalCode], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '吱吱专属机房脱控脚本.bat';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function downloadAdvanced() {
+  const blob = new Blob([advancedCode], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.download = '吱吱脱控脚本（加强测试版）.bat';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function downloadRestore() {
+  const blob = new Blob([restoreCode], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = '恢复极域（重新连回去）.bat';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+const canvas = document.getElementById('matrix');
+const ctx = canvas.getContext('2d');
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+const drops = Array(Math.floor(canvas.width / 14)).fill(1);
+function matrix(){
+  ctx.fillStyle='rgba(0,0,0,0.05)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle='#0f0';
+  ctx.font='14px Consolas';
+  for(let i=0;i<drops.length;i++){
+    ctx.fillText(String.fromCharCode(Math.random()*128),i*14,drops[i]*14);
+    if(drops[i]*14>canvas.height&&Math.random()>0.97)drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(matrix,30);
+</script>
+</body>
+</html>
