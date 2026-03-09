@@ -50,6 +50,7 @@
       margin-bottom:1rem;
       border-left:4px solid #0f0;
       padding-left:10px;
+      line-height:1.5;
     }
     .item {
       margin:12px 0;
@@ -71,62 +72,108 @@
     }
     .game { display:inline-block; background:#0f0; color:#000; padding:4px 10px; border-radius:4px; margin-left:8px; }
 
-    /* 👇 ONLY 新增以下日志样式，其他完全不变 */
-    .log-btn{position:fixed;top:22px;right:22px;background:#0f0;color:#000;padding:6px 12px;border-radius:4px;font-weight:bold;cursor:pointer;z-index:99;}
-    #logPanel{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,.9);z-index:9999;padding:20px;box-sizing:border-box}
-    .log-head{font-size:22px;font-weight:bold;color:#000;margin-bottom:8px}
-    .log-line{height:2px;background:#000;margin-bottom:16px}
-    .log-body{height:calc(100% - 110px);overflow-y:auto;font-size:16px;line-height:1.6;color:#000}
-    .log-bottom{position:absolute;left:20px;right:20px;bottom:20px}
-    .log-close{background:#000;color:#fff;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-weight:bold;margin-top:12px}
+    .log-btn {
+      display:inline-block;
+      background:#0f0;
+      color:#000;
+      font-size:16px;
+      font-weight:bold;
+      padding:8px 16px;
+      border-radius:6px;
+      margin-left:12px;
+      cursor:pointer;
+      border:2px solid #0f0;
+    }
+
+    #logModal {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      background:rgba(0,0,0,0.7);
+      z-index:999;
+      justify-content:center;
+      align-items:center;
+    }
+    .log-window {
+      width:90%;
+      max-width:800px;
+      height:85vh;
+      background:rgba(255,255,255,0.92);
+      border-radius:16px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+    .log-header {
+      padding:16px;
+      font-size:22px;
+      font-weight:bold;
+      color:#000;
+      text-align:center;
+    }
+    .log-line {
+      height:2px;
+      background:#000;
+      margin:0 16px;
+    }
+    .log-content {
+      flex:1;
+      padding:20px;
+      font-size:16px;
+      color:#000;
+      line-height:1.6;
+      overflow-y:auto;
+      white-space:pre-wrap;
+    }
+    .log-bottom {
+      padding:12px 16px;
+      border-top:2px solid #000;
+      text-align:center;
+    }
+    .close-btn {
+      background:#000;
+      color:#fff;
+      font-size:16px;
+      padding:8px 20px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
   </style>
 </head>
 <body>
+
 <canvas id="matrix"></canvas>
-
-<!-- 👇 只加这一个按钮，其他完全不动 -->
-<div class="log-btn" onclick="openLog()">吱吱NB·日志</div>
-
 <h1>廖梓汛的妙妙工具页🔧</h1>
-<div class="mybox">
-  <h1>请使用WIN10+系统打开或使用最新版的Microsoft Edge    浏览器打开
-            否则会出现UI故障与代码雨效果消失<h1>
-    <div class="mybox">
-    <h1>我的GitHUB链接:https://github.com/lzxnb-yyds      (吱吱无偿开源，网页投稿制作找我)
-    <div class="item"><strong>我的GitHUB链接<a href="https://github.com/lzxnb-yyds" target="_blank" class="game">点击进入</a></div>
-    QQ:1599785841     VX:KLDLZ666888</h1>
-      <style>
-.mybox {
-  font-size: 24px;
-  /* 黑客荧光绿边框 */
-  border: 1px solid #00ff00;
-  padding: 10px;
-  /* 加点黑客感，可选 */
-  background: #000;
-  color: #00ff00;
-}
-</style>
-  
-<div class="1box">
+
+<!-- 🔔 系统提示移到最顶部 -->
+<div class="box" style="text-align:center; font-size:16px; font-weight:bold;">
+  请使用 Win10 以上系统打开，或使用最新版 Microsoft Edge 浏览器
+</div>
+
+<div class="box">
+  <div class="title">
+    我的GitHub链接: https://github.com/lzxnb-yyds
+    <a href="https://github.com/lzxnb-yyds" target="_blank" class="game">一键进入</a>
+    <br>
+    吱吱已免费开源，网页投稿制作找我
+  </div>
+  <div class="item">
+    <strong>QQ:1599785841   VX:KLDLZ666888  </strong>
+    <button class="log-btn" onclick="openLog()">吱吱NB·更新日志</button>
+  </div>
+</div>
+
+<div class="box">
   <div class="title">🎮 游戏链接</div>
   <div class="item">
-    <strong>游戏1：我的世界网页版（手机打不开）【吱吱推荐】</strong>
+    <strong>游戏1：我的世界网页版【吱吱推荐】</strong>
     <a href="https://classic.minecraft.net/" target="_blank" class="game">点击进入</a>
   </div>
   <div class="item">
     <strong>游戏2：超级扫雷【吱吱推荐】</strong>
     <a href="https://www.minesweeper.cn/" target="_blank" class="game">点击进入</a>
-    <style>
-.mybox {
-  font-size: 20px;
-  /* 黑客荧光绿边框 */
-  border: 1px solid #00ff00;
-  padding: 10px;
-  /* 加点黑客感，可选 */
-  background: #000;
-  color: #00ff00;
-}
-</style>
   </div>
   <div class="title">🧠 益智离线小游戏</div>
   <div class="item"><strong>数独</strong><a href="https://sudoku.com/zh/" target="_blank" class="game">点击进入</a></div>
@@ -142,96 +189,112 @@
   <div class="item"><strong>合成大西瓜</strong><a href="https://daxigua.love/" target="_blank" class="game">点击进入</a></div>
   <div class="item"><strong>连连看</strong><a href="https://lianliankan.online/" target="_blank" class="game">点击进入</a></div>
 </div>
-<div class="1box">
+
+<div class="box">
   <div class="tip">所有脚本请 👉 右键以管理员身份运行</div>
   <div class="title">📥 吱吱专属机房脱控脚本（点击下载）</div>
-  <div class="download" onclick="downloadBat('吱吱机房脱控【原版】.bat', originalCode)">原版</div>
-  <div class="download" onclick="downloadBat('吱吱机房脱控【加强版】.bat', advancedCode)">加强版</div>
-  <div class="download" onclick="downloadBat('吱吱机房【恢复极域】.bat', restoreCode)">恢复极域</div>
+  <div class="download" onclick="downloadOriginal()">原版</div>
+  <div class="download" onclick="downloadAdvanced()">加强版（测试）</div>
+  <div class="download" onclick="downloadRestore()">恢复极域</div>
 </div>
 
-<!-- 👇 只加日志弹窗，结构完全独立 -->
-<div id="logPanel">
-  <div class="log-head">📌 更新日志</div>
-  <div class="log-line"></div>
-  <div class="log-body">
-2026-03-09 23:29:47<br>
-✅ 服务器遭遇DDOS攻击与CC爬虫攻击，此次攻击覆盖全球个人站用户，被CLOUDFLARE拦截成功，总耗时10min<br>
-2026-03-09 V5.0 正式上线（每日熬到00:00更新不容易）<br>
-✅ 新增吱吱NB·更新日志按钮<br>
-✅ 新增WIN10系统兼容性<br>
-WIN7 代码雨异常与UI异常暂未修复<br>
-<br>
-2026-03-08 V4.0 优化<br>
-🔧 矩阵雨效果优化<br>
-🔧 界面布局统一调整<br>
-<br>
-2026-03-07 V3.1 大更新<br>
-🎮 新增多款小游戏<br>
-📥 脱控脚本一键下载
-    <br>
-2026-03-06 V2.0 大更新<br>
-新增联系方式,正式开源<br>
-📥 脱控测试版研发成功，内部测试中<br>
-
-2026-03-06 V1.0 正式上线<br>
-✅ 我出生了！ohohohohohoh!!!!!!!!<br>
-  </div>
-  <div class="log-bottom">
+<div id="logModal">
+  <div class="log-window">
+    <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
-    <button class="log-close" onclick="closeLog()">返回主页</button>
+    <div class="log-content">
+      
+2026-03-10 01:34:26  V5.1更新（一天双版本还不谢谢我）
+✅ 修复了UI兼容性bug重写了日志UI
+      
+2026-03-09 23:29:47
+✅ 服务器遭遇DDOS攻击与CC爬虫攻击，此次攻击覆盖全球个人站用户，被CLOUDFLARE拦截成功，总耗时10min
+
+2026-03-09 V5.0 正式上线（每日熬到00:00更新不容易）
+✅ 新增吱吱NB·更新日志按钮
+✅ 新增WIN10系统兼容性
+WIN7 代码雨异常与UI异常暂未修复
+
+2026-03-08 V4.0 优化
+🔧 矩阵雨效果优化
+🔧 界面布局统一调整
+
+2026-03-07 V3.1 大更新
+🎮 新增多款小游戏
+📥 脱控脚本一键下载
+
+2026-03-06 V2.0 大更新
+新增联系方式,正式开源
+📥 脱控测试版研发成功，内部测试中
+
+2026-03-06 V1.0 正式上线
+✅ 我出生了！ohohohohohoh!!!!!!!!
+    </div>
+    <div class="log-bottom">
+      <button class="close-btn" onclick="closeLog()">返回主页</button>
+    </div>
   </div>
 </div>
 
 <script>
-const originalCode = `@echo off
-echo 吱吱机房脱控 - 原版
-Net session >nul 2>&1 || powershell Start-Process "%~f0" -Verb RunAs && exit
-taskkill /im studentmain.exe /f >nul 2>&1
-sc stop TDFileFilter >nul 2>&1
-sc delete TDFileFilter >nul 2>&1
-echo 执行完成！
+const originalCode = `
+Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
+tskill st*
+taskkill /im studentmain.exe /f
+sc stop TDFileFilter 
+sc delete TDFileFilter 
 pause
 `;
-const advancedCode = `@echo off
-echo 吱吱机房脱控 - 加强版
-Net session >nul 2>&1 || powershell Start-Process "%~f0" -Verb RunAs && exit
-taskkill /f /t /im studentmain.exe >nul 2>&1
-taskkill /f /t /im stulock.exe >nul 2>&1
-taskkill /f /t /im tdstudent.exe >nul 2>&1
-sc stop TDFileFilter >nul 2>&1
-sc delete TDFileFilter >nul 2>&1
-sc stop TDSafeGuard >nul 2>&1
-sc delete TDSafeGuard >nul 2>&1
+const advancedCode = `
+@echo off
+echo 吱吱专属极域脱控脚本（加强测试版）
+Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
+taskkill /im studentmain.exe /f /t
+taskkill /im stulock.exe /f /t
+taskkill /im tdstudent.exe /f /t
+sc stop TDFileFilter
+sc delete TDFileFilter
+sc stop TDSafeGuard
+sc delete TDSafeGuard
 echo 脱控完成！
 pause
 `;
-const restoreCode = `@echo off
-echo 吱吱机房 - 恢复极域（仅机房有效）
-Net session >nul 2>&1 || powershell Start-Process "%~f0" -Verb RunAs && exit
-echo 尝试启动极域客户端...
-start "" "C:\Program Files (x86)\Mythware\极域电子教室学生端\StudentMain.exe" >nul 2>&1
-start "" "C:\Program Files\Mythware\极域电子教室学生端\StudentMain.exe" >nul 2>&1
-echo 尝试恢复驱动服务...
-sc create TDFileFilter type= kernel binPath= "C:\Program Files (x86)\Mythware\极域电子教室学生端\TDFileFilter.sys" >nul 2>&1
-sc start TDFileFilter >nul 2>&1
-echo.
-echo 【测试环境提示】本机未安装极域，此为正常现象！
-echo 【机房使用】重启电脑即可自动恢复
-echo.
+const restoreCode = `
+@echo off
+echo 恢复极域电子教室 - 重新连上教师机
+Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
+echo 启动极域主程序...
+start C:\Program Files (x86)\Mythware\极域电子教室学生端\StudentMain.exe
+start C:\Program Files\Mythware\极域电子教室学生端\StudentMain.exe
+echo 重新加载极域驱动...
+sc create TDFileFilter type= kernel binPath= "C:\Program Files (x86)\Mythware\极域电子教室学生端\TDFileFilter.sys"
+sc start TDFileFilter
+echo 恢复完成！如果还没恢复，重启电脑即可
 pause
 `;
-function downloadBat(filename, content) {
-  const blob = new Blob([content], { type: "application/bat" });
+
+function downloadOriginal() {
+  const blob = new Blob([originalCode], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
+  const a = document.createElement('a');
+  a.href = url; a.download = '吱吱专属机房脱控脚本.bat';
+  a.click(); URL.revokeObjectURL(url);
 }
+function downloadAdvanced() {
+  const blob = new Blob([advancedCode], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.download = '吱吱脱控脚本（加强测试版）.bat';
+  a.click(); URL.revokeObjectURL(url);
+}
+function downloadRestore() {
+  const blob = new Blob([restoreCode], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.download = '恢复极域（重新连回去）.bat';
+  a.click(); URL.revokeObjectURL(url);
+}
+
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() {
@@ -254,9 +317,12 @@ function matrix(){
 }
 setInterval(matrix,30);
 
-// 👇 ONLY 新增日志开关函数
-function openLog(){document.getElementById('logPanel').style.display='block'}
-function closeLog(){document.getElementById('logPanel').style.display='none'}
+function openLog() {
+  document.getElementById('logModal').style.display = 'flex';
+}
+function closeLog() {
+  document.getElementById('logModal').style.display = 'none';
+}
 </script>
 </body>
 </html>
