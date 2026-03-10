@@ -84,7 +84,6 @@
       cursor:pointer;
       border:2px solid #0f0;
     }
-
     .style-wrap {
       display: inline-block;
       position: relative;
@@ -122,7 +121,6 @@
     .style-select div:hover {
       background: rgba(0,60,0,0.8);
     }
-
     .rain-wrap {
       display: inline-block;
       position: relative;
@@ -160,7 +158,6 @@
     .rain-select div:hover {
       background: rgba(0,60,0,0.8);
     }
-
     /* 黑客绿 */
     body.hacker { background:#000; color:#0f0; }
     body.hacker .box { background:rgba(0,30,0,0.8); border-color:#0f0; }
@@ -171,7 +168,6 @@
     body.hacker .download, body.hacker .game, body.hacker .log-btn, body.hacker .style-btn, body.hacker .rain-btn { background:#0f0; color:#000; border-color:#0f0; }
     body.hacker .style-select, body.hacker .rain-select { background:rgba(0,20,0,0.95); border-color:#0f0; }
     body.hacker .style-select div, body.hacker .rain-select div { color:#0f0; }
-
     /* 黑白简约（白底 → 标题纯白） */
     body.bw { background:#fff; color:#222; }
     body.bw .box { background:rgba(255,255,255,0.95); border-color:#222; }
@@ -182,7 +178,6 @@
     body.bw .download, body.bw .game, body.bw .log-btn, body.bw .style-btn, body.bw .rain-btn { background:#222; color:#fff; border-color:#222; }
     body.bw .style-select, body.bw .rain-select { background:#fff; border-color:#222; }
     body.bw .style-select div, body.bw .rain-select div { color:#222; }
-
     /* 泡泡糖粉 */
     body.pink { background:#fef0f7; color:#c2185b; }
     body.pink .box { background:rgba(255,255,255,0.9); border-color:#c2185b; }
@@ -193,7 +188,6 @@
     body.pink .download, body.pink .game, body.pink .log-btn, body.pink .style-btn, body.pink .rain-btn { background:#c2185b; color:#fff; border-color:#c2185b; }
     body.pink .style-select, body.pink .rain-select { background:#fff; border-color:#c2185b; }
     body.pink .style-select div, body.pink .rain-select div { color:#c2185b; }
-
     /* 海洋蓝 */
     body.ocean { background:#f0f8ff; color:#0d47a1; }
     body.ocean .box { background:rgba(255,255,255,0.9); border-color:#0d47a1; }
@@ -204,7 +198,6 @@
     body.ocean .download, body.ocean .game, body.ocean .log-btn, body.ocean .style-btn, body.ocean .rain-btn { background:#0d47a1; color:#fff; border-color:#0d47a1; }
     body.ocean .style-select, body.ocean .rain-select { background:#fff; border-color:#0d47a1; }
     body.ocean .style-select div, body.ocean .rain-select div { color:#0d47a1; }
-
     #logModal {
       display:none;
       position:fixed;
@@ -278,7 +271,6 @@
   <div class="item">
     <strong>QQ:   VX:  吱吱NB</strong>
     <button class="log-btn" onclick="openLog()">更新日志</button>
-
     <div class="style-wrap">
       <button class="style-btn" onclick="toggleStyleSelect()">风格 ▼</button>
       <div class="style-select" id="styleList">
@@ -288,7 +280,6 @@
         <div onclick="setSkin('ocean')">海洋蓝</div>
       </div>
     </div>
-
     <div class="rain-wrap">
       <button class="rain-btn" onclick="toggleRainSelect()">雨滴 ▼</button>
       <div class="rain-select" id="rainList">
@@ -300,7 +291,6 @@
     </div>
   </div>
 </div>
-
 <div class="box">
   <div class="title">🎮 游戏链接</div>
   <div class="item">
@@ -325,7 +315,6 @@
   <div class="item"><strong>合成大西瓜</strong><a href="https://daxigua.love/" target="_blank" class="game">点击进入</a></div>
   <div class="item"><strong>连连看</strong><a href="https://lianliankan.online/" target="_blank" class="game">点击进入</a></div>
 </div>
-
 <div class="box">
   <div class="tip">所有脚本请 👉 右键以管理员身份运行</div>
   <div class="title">📥 吱吱专属机房脱控脚本（点击下载）</div>
@@ -333,7 +322,6 @@
   <div class="download" onclick="downloadAdvanced()">加强版（测试）</div>
   <div class="download" onclick="downloadRestore()">恢复极域</div>
 </div>
-
 <div id="logModal">
   <div class="log-window">
     <div class="log-header">📋 吱吱NB · 更新日志</div>
@@ -432,27 +420,31 @@ function downloadRestore() {
   a.click(); URL.revokeObjectURL(url);
 }
 
-// ====================== 最终全屏高密度飘落版 ======================
+// ====================== 只改这里：代码雨恢复初版，其他完全不变 ======================
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-let w = canvas.width = window.innerWidth;
-let h = canvas.height = window.innerHeight;
-window.onresize = () => { w = canvas.width = innerWidth; h = canvas.height = innerHeight; };
 
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// 原版代码雨配置
+const drops = Array(Math.floor(canvas.width / 14)).fill(1);
 let mode = "code";
 let fallText = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+
+// 星月不变
 const starMoon = ["⭐","🌙","✨"];
 
-// 代码雨
-const drops = Array(Math.floor(w/14)).fill(1);
-
-// 高密度全屏飘落
+// 飘落粒子（星月/自定义/吱吱 完全不动）
 const items = [];
-// 数量拉满 → 全屏不断、超密集
 for(let i=0;i<80;i++){
   items.push({
-    x: Math.random()*w,
-    y: Math.random()*h,
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
     vy: 4 + Math.random()*1.5
   });
 }
@@ -500,25 +492,29 @@ function getColor() {
   return "#0f0";
 }
 
-// 绘制：无虚影 + 高密度
+// 绘制：代码雨 = 原版；其他 = 你现在的完美效果
 function draw() {
-  ctx.clearRect(0,0,w,h);
-  ctx.fillStyle = getColor();
-
   if(mode === "code"){
-    ctx.font = "14px Consolas";
-    for(let i=0;i<drops.length;i++){
-      const ch = fallText[Math.floor(Math.random()*fallText.length)];
+    // 原版代码雨（带拖影）
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = getColor();
+    ctx.font = '14px Consolas';
+    for (let i=0; i<drops.length; i++) {
+      const ch = fallText[Math.floor(Math.random() * fallText.length)];
       ctx.fillText(ch, i*14, drops[i]*14);
-      if(drops[i]*14 > h && Math.random() > 0.97) drops[i] = 0;
+      if (drops[i]*14 > canvas.height && Math.random() > 0.97) drops[i] = 0;
       drops[i]++;
     }
   }else{
+    // 星月/自定义/吱吱 完全不变
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = getColor();
     ctx.font = "20px Consolas";
     for(let p of items){
       ctx.fillText(fallText, p.x, p.y);
       p.y += p.vy;
-      if(p.y > h) { p.y = -20; p.x = Math.random()*w; }
+      if(p.y > canvas.height) { p.y = -20; p.x = Math.random()*canvas.width; }
     }
   }
 }
