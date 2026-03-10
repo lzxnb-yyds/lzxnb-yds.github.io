@@ -9,6 +9,7 @@
       margin:0; padding:0;
       box-sizing:border-box;
       font-family: Consolas, monospace;
+      transition: all 0.25s ease;
     }
     body {
       background:#000;
@@ -71,7 +72,6 @@
       font-weight:bold;
     }
     .game { display:inline-block; background:#0f0; color:#000; padding:4px 10px; border-radius:4px; margin-left:8px; }
-
     .log-btn {
       display:inline-block;
       background:#0f0;
@@ -84,6 +84,126 @@
       cursor:pointer;
       border:2px solid #0f0;
     }
+
+    .style-wrap {
+      display: inline-block;
+      position: relative;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .style-btn {
+      background:#0f0;
+      color:#000;
+      font-size:16px;
+      font-weight:bold;
+      padding:8px 14px;
+      border-radius:6px;
+      cursor:pointer;
+      border:2px solid #0f0;
+    }
+    .style-select {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 6px;
+      background: rgba(0,20,0,0.95);
+      border: 1px solid #0f0;
+      border-radius:6px;
+      min-width:140px;
+      overflow: hidden;
+      display: none;
+      z-index: 10;
+    }
+    .style-select div {
+      padding:8px 12px;
+      cursor: pointer;
+      color:#0f0;
+    }
+    .style-select div:hover {
+      background: rgba(0,60,0,0.8);
+    }
+
+    .rain-wrap {
+      display: inline-block;
+      position: relative;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+    .rain-btn {
+      background:#0f0;
+      color:#000;
+      font-size:16px;
+      font-weight:bold;
+      padding:8px 14px;
+      border-radius:6px;
+      cursor:pointer;
+      border:2px solid #0f0;
+    }
+    .rain-select {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 6px;
+      background: rgba(0,20,0,0.95);
+      border: 1px solid #0f0;
+      border-radius:6px;
+      min-width:160px;
+      overflow: hidden;
+      display: none;
+      z-index: 10;
+    }
+    .rain-select div {
+      padding:8px 12px;
+      cursor: pointer;
+      color:#0f0;
+    }
+    .rain-select div:hover {
+      background: rgba(0,60,0,0.8);
+    }
+
+    /* 黑客绿 */
+    body.hacker { background:#000; color:#0f0; }
+    body.hacker .box { background:rgba(0,30,0,0.8); border-color:#0f0; }
+    body.hacker .title { border-color:#0f0; }
+    body.hacker a { color:#0f0; }
+    body.hacker .tip { color:#0f0; }
+    body.hacker h1 { color:#0f0; text-shadow:0 0 10px #0f0; }
+    body.hacker .download, body.hacker .game, body.hacker .log-btn, body.hacker .style-btn, body.hacker .rain-btn { background:#0f0; color:#000; border-color:#0f0; }
+    body.hacker .style-select, body.hacker .rain-select { background:rgba(0,20,0,0.95); border-color:#0f0; }
+    body.hacker .style-select div, body.hacker .rain-select div { color:#0f0; }
+
+    /* 黑白简约（白底 → 标题纯白） */
+    body.bw { background:#fff; color:#222; }
+    body.bw .box { background:rgba(255,255,255,0.95); border-color:#222; }
+    body.bw .title { border-color:#222; }
+    body.bw a { color:#222; }
+    body.bw .tip { color:#222; }
+    body.bw h1 { color:#fff !important; text-shadow: 0 0 4px #000 !important; }
+    body.bw .download, body.bw .game, body.bw .log-btn, body.bw .style-btn, body.bw .rain-btn { background:#222; color:#fff; border-color:#222; }
+    body.bw .style-select, body.bw .rain-select { background:#fff; border-color:#222; }
+    body.bw .style-select div, body.bw .rain-select div { color:#222; }
+
+    /* 泡泡糖粉 */
+    body.pink { background:#fef0f7; color:#c2185b; }
+    body.pink .box { background:rgba(255,255,255,0.9); border-color:#c2185b; }
+    body.pink .title { border-color:#c2185b; }
+    body.pink a { color:#c2185b; }
+    body.pink .tip { color:#c2185b; }
+    body.pink h1 { color:#c2185b; text-shadow:none; }
+    body.pink .download, body.pink .game, body.pink .log-btn, body.pink .style-btn, body.pink .rain-btn { background:#c2185b; color:#fff; border-color:#c2185b; }
+    body.pink .style-select, body.pink .rain-select { background:#fff; border-color:#c2185b; }
+    body.pink .style-select div, body.pink .rain-select div { color:#c2185b; }
+
+    /* 海洋蓝 */
+    body.ocean { background:#f0f8ff; color:#0d47a1; }
+    body.ocean .box { background:rgba(255,255,255,0.9); border-color:#0d47a1; }
+    body.ocean .title { border-color:#0d47a1; }
+    body.ocean a { color:#0d47a1; }
+    body.ocean .tip { color:#0d47a1; }
+    body.ocean h1 { color:#0d47a1; text-shadow:none; }
+    body.ocean .download, body.ocean .game, body.ocean .log-btn, body.ocean .style-btn, body.ocean .rain-btn { background:#0d47a1; color:#fff; border-color:#0d47a1; }
+    body.ocean .style-select, body.ocean .rain-select { background:#fff; border-color:#0d47a1; }
+    body.ocean .style-select div, body.ocean .rain-select div { color:#0d47a1; }
 
     #logModal {
       display:none;
@@ -99,7 +219,7 @@
       width:90%;
       max-width:800px;
       height:85vh;
-      background:rgba(255,255,255,0.92);
+      background:#fff;
       border-radius:16px;
       display:flex;
       flex-direction:column;
@@ -142,16 +262,12 @@
     }
   </style>
 </head>
-<body>
-
+<body class="hacker">
 <canvas id="matrix"></canvas>
 <h1>廖梓汛的妙妙工具页🔧</h1>
-
-<!-- 🔔 系统提示移到最顶部 -->
 <div class="box" style="text-align:center; font-size:16px; font-weight:bold;">
   请使用 Win10 以上系统打开，或使用最新版 Microsoft Edge 浏览器
 </div>
-
 <div class="box">
   <div class="title">
     我的GitHub链接: https://github.com/lzxnb-yyds
@@ -160,8 +276,28 @@
     吱吱已免费开源，网页投稿制作找我
   </div>
   <div class="item">
-    <strong>QQ:1599785841   VX:KLDLZ666888  </strong>
-    <button class="log-btn" onclick="openLog()">吱吱NB·更新日志</button>
+    <strong>QQ:   VX:  吱吱NB</strong>
+    <button class="log-btn" onclick="openLog()">更新日志</button>
+
+    <div class="style-wrap">
+      <button class="style-btn" onclick="toggleStyleSelect()">风格 ▼</button>
+      <div class="style-select" id="styleList">
+        <div onclick="setSkin('hacker')">黑客绿</div>
+        <div onclick="setSkin('bw')">黑白简约</div>
+        <div onclick="setSkin('pink')">泡泡糖</div>
+        <div onclick="setSkin('ocean')">海洋蓝</div>
+      </div>
+    </div>
+
+    <div class="rain-wrap">
+      <button class="rain-btn" onclick="toggleRainSelect()">雨滴 ▼</button>
+      <div class="rain-select" id="rainList">
+        <div onclick="setRainType('code')">默认代码雨</div>
+        <div onclick="setRainType('emoji')">星月雨</div>
+        <div onclick="setRainType('custom')">自定义文本</div>
+        <div onclick="setRainType('zhizhi')">吱吱专利</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -203,6 +339,8 @@
     <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
     <div class="log-content">
+2026-03-11 00:48:19  V6.0更新
+✅ 重写了所有UI，新增UI选项，自定义雨等
       
 2026-03-10 01:34:26  V5.1更新（一天双版本还不谢谢我）
 ✅ 修复了UI兼容性bug重写了日志UI
@@ -272,7 +410,6 @@ sc start TDFileFilter
 echo 恢复完成！如果还没恢复，重启电脑即可
 pause
 `;
-
 function downloadOriginal() {
   const blob = new Blob([originalCode], { type: 'text/plain' });
   const url = URL.createObjectURL(blob);
@@ -295,34 +432,101 @@ function downloadRestore() {
   a.click(); URL.revokeObjectURL(url);
 }
 
+// ====================== 最终全屏高密度飘落版 ======================
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+window.onresize = () => { w = canvas.width = innerWidth; h = canvas.height = innerHeight; };
+
+let mode = "code";
+let fallText = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+const starMoon = ["⭐","🌙","✨"];
+
+// 代码雨
+const drops = Array(Math.floor(w/14)).fill(1);
+
+// 高密度全屏飘落
+const items = [];
+// 数量拉满 → 全屏不断、超密集
+for(let i=0;i<80;i++){
+  items.push({
+    x: Math.random()*w,
+    y: Math.random()*h,
+    vy: 4 + Math.random()*1.5
+  });
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-const drops = Array(Math.floor(canvas.width / 14)).fill(1);
-function matrix(){
-  ctx.fillStyle='rgba(0,0,0,0.05)';
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle='#0f0';
-  ctx.font='14px Consolas';
-  for(let i=0;i<drops.length;i++){
-    ctx.fillText(String.fromCharCode(Math.random()*128),i*14,drops[i]*14);
-    if(drops[i]*14>canvas.height&&Math.random()>0.97)drops[i]=0;
-    drops[i]++;
+
+// 切换下拉
+function toggleStyleSelect(){
+  const s = document.getElementById("styleList");
+  s.style.display = s.style.display=="block"?"none":"block";
+  document.getElementById("rainList").style.display="none";
+}
+function toggleRainSelect(){
+  const r = document.getElementById("rainList");
+  r.style.display = r.style.display=="block"?"none":"block";
+  document.getElementById("styleList").style.display="none";
+}
+
+// 切换风格
+function setSkin(cls) {
+  document.body.className = cls;
+  document.getElementById("styleList").style.display="none";
+}
+
+// 切换雨滴
+function setRainType(t) {
+  if(t==="code"){
+    mode="code";
+    fallText = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+  }else{
+    mode="float";
+    if(t==="emoji") fallText = starMoon[Math.floor(Math.random()*starMoon.length)];
+    if(t==="custom"){
+      let val = prompt("请输入横向飘落文字：","");
+      fallText = (val&&val.trim()) || "自定义文字";
+    }
+    if(t==="zhizhi") fallText = "吱吱NB";
+  }
+  document.getElementById("rainList").style.display="none";
+}
+
+// 颜色适配
+function getColor() {
+  if(document.body.classList.contains("bw")) return "#ffffff";
+  if(document.body.classList.contains("pink")) return "#c2185b";
+  if(document.body.classList.contains("ocean")) return "#0d47a1";
+  return "#0f0";
+}
+
+// 绘制：无虚影 + 高密度
+function draw() {
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = getColor();
+
+  if(mode === "code"){
+    ctx.font = "14px Consolas";
+    for(let i=0;i<drops.length;i++){
+      const ch = fallText[Math.floor(Math.random()*fallText.length)];
+      ctx.fillText(ch, i*14, drops[i]*14);
+      if(drops[i]*14 > h && Math.random() > 0.97) drops[i] = 0;
+      drops[i]++;
+    }
+  }else{
+    ctx.font = "20px Consolas";
+    for(let p of items){
+      ctx.fillText(fallText, p.x, p.y);
+      p.y += p.vy;
+      if(p.y > h) { p.y = -20; p.x = Math.random()*w; }
+    }
   }
 }
-setInterval(matrix,30);
+setInterval(draw, 30);
 
-function openLog() {
-  document.getElementById('logModal').style.display = 'flex';
-}
-function closeLog() {
-  document.getElementById('logModal').style.display = 'none';
-}
+// 日志
+function openLog() { document.getElementById('logModal').style.display = 'flex'; }
+function closeLog() { document.getElementById('logModal').style.display = 'none'; }
 </script>
 </body>
 </html>
