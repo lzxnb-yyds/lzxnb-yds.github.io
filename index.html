@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>吱吱的妙妙工具页🔧 V7.2</title>
+  <title>吱吱的妙妙工具页🔧 V7.3</title>
   <style>
     * {
       margin:0; padding:0;
@@ -73,6 +73,19 @@
     }
     .game { display:inline-block; background:#0f0; color:#000; padding:4px 10px; border-radius:4px; margin-left:8px; }
     .log-btn {
+      display:inline-block;
+      background:#0f0;
+      color:#000;
+      font-size:16px;
+      font-weight:bold;
+      padding:8px 16px;
+      border-radius:6px;
+      margin-left:12px;
+      cursor:pointer;
+      border:2px solid #0f0;
+    }
+    /* 新增赞赏按钮样式 - 与原有按钮统一 */
+    .reward-btn {
       display:inline-block;
       background:#0f0;
       color:#000;
@@ -165,7 +178,7 @@
     body.hacker a { color:#0f0; }
     body.hacker .tip { color:#0f0; }
     body.hacker h1 { color:#0f0; text-shadow:0 0 10px #0f0; }
-    body.hacker .download, body.hacker .game, body.hacker .log-btn, body.hacker .style-btn, body.hacker .rain-btn { background:#0f0; color:#000; border-color:#0f0; }
+    body.hacker .download, body.hacker .game, body.hacker .log-btn, body.hacker .style-btn, body.hacker .rain-btn, body.hacker .reward-btn { background:#0f0; color:#000; border-color:#0f0; }
     body.hacker .style-select, body.hacker .rain-select { background:rgba(0,20,0,0.95); border-color:#0f0; }
     body.hacker .style-select div, body.hacker .rain-select div { color:#0f0; }
     /* 黑白简约（白底 → 标题纯白） */
@@ -175,7 +188,7 @@
     body.bw a { color:#222; }
     body.bw .tip { color:#222; }
     body.bw h1 { color:#fff !important; text-shadow: 0 0 4px #000 !important; }
-    body.bw .download, body.bw .game, body.bw .log-btn, body.bw .style-btn, body.bw .rain-btn { background:#222; color:#fff; border-color:#222; }
+    body.bw .download, body.bw .game, body.bw .log-btn, body.bw .style-btn, body.bw .rain-btn, body.bw .reward-btn { background:#222; color:#fff; border-color:#222; }
     body.bw .style-select, body.bw .rain-select { background:#fff; border-color:#222; }
     body.bw .style-select div, body.bw .rain-select div { color:#222; }
     /* 泡泡糖粉 */
@@ -185,7 +198,7 @@
     body.pink a { color:#c2185b; }
     body.pink .tip { color:#c2185b; }
     body.pink h1 { color:#c2185b; text-shadow:none; }
-    body.pink .download, body.pink .game, body.pink .log-btn, body.pink .style-btn, body.pink .rain-btn { background:#c2185b; color:#fff; border-color:#c2185b; }
+    body.pink .download, body.pink .game, body.pink .log-btn, body.pink .style-btn, body.pink .rain-btn, body.pink .reward-btn { background:#c2185b; color:#fff; border-color:#c2185b; }
     body.pink .style-select, body.pink .rain-select { background:#fff; border-color:#c2185b; }
     body.pink .style-select div, body.pink .rain-select div { color:#c2185b; }
     /* 海洋蓝 */
@@ -195,10 +208,21 @@
     body.ocean a { color:#0d47a1; }
     body.ocean .tip { color:#0d47a1; }
     body.ocean h1 { color:#0d47a1; text-shadow:none; }
-    body.ocean .download, body.ocean .game, body.ocean .log-btn, body.ocean .style-btn, body.ocean .rain-btn { background:#0d47a1; color:#fff; border-color:#0d47a1; }
+    body.ocean .download, body.ocean .game, body.ocean .log-btn, body.ocean .style-btn, body.ocean .rain-btn, body.ocean .reward-btn { background:#0d47a1; color:#fff; border-color:#0d47a1; }
     body.ocean .style-select, body.ocean .rain-select { background:#fff; border-color:#0d47a1; }
     body.ocean .style-select div, body.ocean .rain-select div { color:#0d47a1; }
     #logModal {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      background:rgba(0,0,0,0.7);
+      z-index:999;
+      justify-content:center;
+      align-items:center;
+    }
+    /* 新增赞赏弹窗样式 */
+    #rewardModal {
       display:none;
       position:fixed;
       top:0; left:0;
@@ -218,11 +242,32 @@
       flex-direction:column;
       overflow:hidden;
     }
+    /* 赞赏弹窗容器 */
+    .reward-window {
+      width:90%;
+      max-width:400px;
+      height:auto;
+      background:#fff;
+      border-radius:16px;
+      padding:2rem;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      overflow:hidden;
+    }
     .log-header {
       padding:16px;
       font-size:22px;
       font-weight:bold;
       color:#000;
+      text-align:center;
+    }
+    /* 赞赏弹窗标题 */
+    .reward-header {
+      font-size:22px;
+      font-weight:bold;
+      color:#000;
+      margin-bottom:1rem;
       text-align:center;
     }
     .log-line {
@@ -239,12 +284,33 @@
       overflow-y:auto;
       white-space:pre-wrap;
     }
+    /* 收款码图片样式 */
+    .reward-img {
+      width:100%;
+      height:auto;
+      border-radius:8px;
+    }
     .log-bottom {
       padding:12px 16px;
       border-top:2px solid #000;
       text-align:center;
     }
+    /* 赞赏弹窗底部 */
+    .reward-bottom {
+      padding:1rem 0 0 0;
+      text-align:center;
+    }
     .close-btn {
+      background:#000;
+      color:#fff;
+      font-size:16px;
+      padding:8px 20px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+    /* 赞赏弹窗关闭按钮 */
+    .reward-close-btn {
       background:#000;
       color:#fff;
       font-size:16px;
@@ -257,7 +323,7 @@
 </head>
 <body class="hacker">
 <canvas id="matrix"></canvas>
-<h1>吱吱的妙妙工具页🔧V7.2</h1>
+<h1>吱吱的妙妙工具页🔧V7.3</h1>
 <div class="box" style="text-align:center; font-size:16px; font-weight:bold;">
   请使用 Win10 以上系统打开，或使用最新版 Microsoft Edge 浏览器
 </div>
@@ -269,8 +335,10 @@
     吱吱已免费开源，网页投稿制作找我
   </div>
   <div class="item">
-    <strong>QQ:1599785841   VX:KLDLZ666888  吱吱NB</strong>
-    <button class="log-btn" onclick="openLog()">更新日志（看一下吧）</button>
+    <strong>QQ:   VX:  吱吱NB</strong>
+    <button class="log-btn" onclick="openLog()">更新日志（看一下吧）(最高纪录:1天5版本)</button>
+    <!-- 新增赞赏按钮 - 放在更新日志右侧 -->
+    <button class="reward-btn" onclick="openReward()">赞赏</button>
     <div class="style-wrap">
       <button class="style-btn" onclick="toggleStyleSelect()">UI风格 ▼</button>
       <div class="style-select" id="styleList">
@@ -344,6 +412,10 @@
     <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
     <div class="log-content">
+2026-03-16 01:43:56  V7.3
+✅新增赞赏功能(一天5个版本，燃成舍利子)
+OS:燃...燃尽了
+      
 2026-03-16 01:43:56  V7.2
 ✅紧急修复了因新增内容而导致的UI错乱问题
 OS:嘻嘻，这次真的不知道更什么了
@@ -386,6 +458,16 @@ WIN7 代码雨异常与UI异常暂未修复
     </div>
     <div class="log-bottom">
       <button class="close-btn" onclick="closeLog()">返回主页</button>
+    </div>
+  </div>
+</div>
+<!-- 新增赞赏弹窗 - 已填入你的收款码链接 -->
+<div id="rewardModal">
+  <div class="reward-window">
+    <div class="reward-header">✨ 感谢大佬的赞赏 ✨</div>
+    <img src="https://ftp.mioz.cn/test/2026/03/16/1773597407.JPG" class="reward-img">
+    <div class="reward-bottom">
+      <button class="reward-close-btn" onclick="closeReward()">关闭</button>
     </div>
   </div>
 </div>
@@ -539,6 +621,9 @@ setInterval(draw, 30);
 // 日志
 function openLog() { document.getElementById('logModal').style.display = 'flex'; }
 function closeLog() { document.getElementById('logModal').style.display = 'none'; }
+// 新增赞赏弹窗JS函数
+function openReward() { document.getElementById('rewardModal').style.display = 'flex'; }
+function closeReward() { document.getElementById('rewardModal').style.display = 'none'; }
 </script>
 </body>
 </html>
