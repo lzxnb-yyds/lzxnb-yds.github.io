@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>廖梓汛的妙妙工具页🔧</title>
+  <title>廖梓汛的妙妙工具页🔧 V7.0</title>
   <style>
     * {
       margin:0; padding:0;
@@ -284,7 +284,7 @@
       <button class="rain-btn" onclick="toggleRainSelect()">雨滴效果 ▼</button>
       <div class="rain-select" id="rainList">
         <div onclick="setRainType('code')">默认代码雨</div>
-        <div onclick="setRainType('emoji')">星星雨（月亮被吃了）</div>
+        <div onclick="setRainType('emoji')">星月雨（点一次随机切换）</div>
         <div onclick="setRainType('custom')">自定义文本（需要输入）</div>
         <div onclick="setRainType('zhizhi')">吱吱专利</div>
       </div>
@@ -311,9 +311,22 @@
   <div class="item"><strong>打砖块</strong><a href="https://atari.com/arcade/breakout" target="_blank" class="game">点击进入</a></div>
   <div class="item"><strong>乒乓对战</strong><a href="https://ponggame.org/" target="_blank" class="game">点击进入</a></div>
   <div class="title">🧩 休闲解压小游戏</div>
-  <div class="item"><strong>见缝插针</strong><a href="https://aa-game.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>见缝插针</strong><a href="https://www.aa-game.com/" target="_blank" class="game">点击进入</a></div>
   <div class="item"><strong>合成大西瓜</strong><a href="https://daxigua.love/" target="_blank" class="game">点击进入</a></div>
   <div class="item"><strong>连连看</strong><a href="https://lianliankan.online/" target="_blank" class="game">点击进入</a></div>
+  <div class="title">🎮 游戏网站合集(有国外国内)</div>
+  <div class="title">🔹 国内免登录游戏站</div>
+  <div class="item"><strong>小猪秒玩</strong><a href="https://cn.pigame.cc/" target="_blank" class="game">点击进入</a></div>
+  <div class="title">🔹 国外免登录游戏站</div>
+  <div class="item"><strong>Poki(中文界面)</strong><a href="https://poki.com/zh/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>CrazyGames</strong><a href="https://www.crazygames.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>KBH Games</strong><a href="https://kbhgames.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>Friv</strong><a href="https://www.friv.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>Kongregate</strong><a href="https://www.kongregate.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>Y8</strong><a href="https://www.y8.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>Addicting Games</strong><a href="https://www.addictinggames.com/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>Neal.fun</strong><a href="https://neal.fun/" target="_blank" class="game">点击进入</a></div>
+  <div class="item"><strong>Slow Roads</strong><a href="https://slowroads.io/" target="_blank" class="game">点击进入</a></div>
 </div>
 <div class="box">
   <div class="tip">所有脚本请 👉 右键以管理员身份运行</div>
@@ -327,6 +340,10 @@
     <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
     <div class="log-content">
+2026-03-16 00:32:12  V7
+✅灵光一闪，加了游戏网站，随便玩
+OS:真的不知道更什么了
+      
 2026-03-16 00:08:12  V6.1
 ✅修复了手机版用户的跳转bug
 OS:就先暂时不更新了，因为不知道更什么
@@ -339,24 +356,19 @@ OS:就先暂时不更新了，因为不知道更什么
       
 2026-03-09 23:29:47
 ✅ 服务器遭遇DDOS攻击与CC爬虫攻击，此次攻击覆盖全球个人站用户，被CLOUDFLARE拦截成功，总耗时10min
-
 2026-03-09 V5.0 正式上线（每日熬到00:00更新不容易）
 ✅ 新增吱吱NB·更新日志按钮
 ✅ 新增WIN10系统兼容性
 WIN7 代码雨异常与UI异常暂未修复
-
 2026-03-08 V4.0 优化
 🔧 矩阵雨效果优化
 🔧 界面布局统一调整
-
 2026-03-07 V3.1 大更新
 🎮 新增多款小游戏
 📥 脱控脚本一键下载
-
 2026-03-06 V2.0 大更新
 新增联系方式,正式开源
 📥 脱控测试版研发成功，内部测试中
-
 2026-03-06 V1.0 正式上线
 ✅ 我出生了！ohohohohohoh!!!!!!!!
     </div>
@@ -365,7 +377,6 @@ WIN7 代码雨异常与UI异常暂未修复
     </div>
   </div>
 </div>
-
 <script>
 const originalCode = `
 Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
@@ -423,26 +434,21 @@ function downloadRestore() {
   a.download = '恢复极域（重新连回去）.bat';
   a.click(); URL.revokeObjectURL(url);
 }
-
 // ====================== 只改这里：代码雨恢复初版，其他完全不变 ======================
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
-
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
-
 // 原版代码雨配置
 const drops = Array(Math.floor(canvas.width / 14)).fill(1);
 let mode = "code";
 let fallText = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-
 // 星月不变
 const starMoon = ["⭐","🌙","✨"];
-
 // 飘落粒子（星月/自定义/吱吱 完全不动）
 const items = [];
 for(let i=0;i<80;i++){
@@ -452,7 +458,6 @@ for(let i=0;i<80;i++){
     vy: 4 + Math.random()*1.5
   });
 }
-
 // 切换下拉
 function toggleStyleSelect(){
   const s = document.getElementById("styleList");
@@ -464,13 +469,11 @@ function toggleRainSelect(){
   r.style.display = r.style.display=="block"?"none":"block";
   document.getElementById("styleList").style.display="none";
 }
-
 // 切换风格
 function setSkin(cls) {
   document.body.className = cls;
   document.getElementById("styleList").style.display="none";
 }
-
 // 切换雨滴
 function setRainType(t) {
   if(t==="code"){
@@ -487,7 +490,6 @@ function setRainType(t) {
   }
   document.getElementById("rainList").style.display="none";
 }
-
 // 颜色适配
 function getColor() {
   if(document.body.classList.contains("bw")) return "#ffffff";
@@ -495,7 +497,6 @@ function getColor() {
   if(document.body.classList.contains("ocean")) return "#0d47a1";
   return "#0f0";
 }
-
 // 绘制：代码雨 = 原版；其他 = 你现在的完美效果
 function draw() {
   if(mode === "code"){
@@ -523,7 +524,6 @@ function draw() {
   }
 }
 setInterval(draw, 30);
-
 // 日志
 function openLog() { document.getElementById('logModal').style.display = 'flex'; }
 function closeLog() { document.getElementById('logModal').style.display = 'none'; }
