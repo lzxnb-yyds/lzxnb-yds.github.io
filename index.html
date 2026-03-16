@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>吱吱的妙妙工具页🔧 V7.3</title>
+  <title>吱吱的妙妙工具页🔧 V7.4</title>
   <style>
     * {
       margin:0; padding:0;
@@ -31,6 +31,44 @@
       color:#0f0;
       margin-bottom:0.5rem;
       text-shadow:0 0 10px #0f0;
+    }
+    /* 新增：管理员按钮高级样式 */
+    .admin-btn {
+      display:block;
+      width:180px;
+      margin:0 auto 1rem auto;
+      background:linear-gradient(135deg, #0f0, #090);
+      color:#000;
+      font-size:16px;
+      font-weight:bold;
+      padding:10px 20px;
+      border-radius:8px;
+      cursor:pointer;
+      border:2px solid #0f0;
+      text-align:center;
+      text-decoration:none;
+      box-shadow:0 0 15px rgba(0,255,0,0.5);
+    }
+    /* 黑白风格管理员按钮 */
+    body.bw .admin-btn {
+      background:linear-gradient(135deg, #333, #000);
+      color:#fff;
+      border-color:#222;
+      box-shadow:0 0 15px rgba(0,0,0,0.5);
+    }
+    /* 泡泡糖粉风格管理员按钮 */
+    body.pink .admin-btn {
+      background:linear-gradient(135deg, #c2185b, #880e4f);
+      color:#fff;
+      border-color:#c2185b;
+      box-shadow:0 0 15px rgba(194,24,91,0.5);
+    }
+    /* 海洋蓝风格管理员按钮 */
+    body.ocean .admin-btn {
+      background:linear-gradient(135deg, #0d47a1, #002f6c);
+      color:#fff;
+      border-color:#0d47a1;
+      box-shadow:0 0 15px rgba(13,71,161,0.5);
     }
     .tip {
       text-align:center;
@@ -84,8 +122,21 @@
       cursor:pointer;
       border:2px solid #0f0;
     }
-    /* 新增赞赏按钮样式 - 与原有按钮统一 */
+    /* 赞赏按钮样式 - 与原有按钮统一 */
     .reward-btn {
+      display:inline-block;
+      background:#0f0;
+      color:#000;
+      font-size:16px;
+      font-weight:bold;
+      padding:8px 16px;
+      border-radius:6px;
+      margin-left:12px;
+      cursor:pointer;
+      border:2px solid #0f0;
+    }
+    /* 留言按钮样式 - 与原有按钮统一 */
+    .msg-btn {
       display:inline-block;
       background:#0f0;
       color:#000;
@@ -178,7 +229,7 @@
     body.hacker a { color:#0f0; }
     body.hacker .tip { color:#0f0; }
     body.hacker h1 { color:#0f0; text-shadow:0 0 10px #0f0; }
-    body.hacker .download, body.hacker .game, body.hacker .log-btn, body.hacker .style-btn, body.hacker .rain-btn, body.hacker .reward-btn { background:#0f0; color:#000; border-color:#0f0; }
+    body.hacker .download, body.hacker .game, body.hacker .log-btn, body.hacker .style-btn, body.hacker .rain-btn, body.hacker .reward-btn, body.hacker .msg-btn { background:#0f0; color:#000; border-color:#0f0; }
     body.hacker .style-select, body.hacker .rain-select { background:rgba(0,20,0,0.95); border-color:#0f0; }
     body.hacker .style-select div, body.hacker .rain-select div { color:#0f0; }
     /* 黑白简约（白底 → 标题纯白） */
@@ -188,7 +239,7 @@
     body.bw a { color:#222; }
     body.bw .tip { color:#222; }
     body.bw h1 { color:#fff !important; text-shadow: 0 0 4px #000 !important; }
-    body.bw .download, body.bw .game, body.bw .log-btn, body.bw .style-btn, body.bw .rain-btn, body.bw .reward-btn { background:#222; color:#fff; border-color:#222; }
+    body.bw .download, body.bw .game, body.bw .log-btn, body.bw .style-btn, body.bw .rain-btn, body.bw .reward-btn, body.bw .msg-btn { background:#222; color:#fff; border-color:#222; }
     body.bw .style-select, body.bw .rain-select { background:#fff; border-color:#222; }
     body.bw .style-select div, body.bw .rain-select div { color:#222; }
     /* 泡泡糖粉 */
@@ -198,7 +249,7 @@
     body.pink a { color:#c2185b; }
     body.pink .tip { color:#c2185b; }
     body.pink h1 { color:#c2185b; text-shadow:none; }
-    body.pink .download, body.pink .game, body.pink .log-btn, body.pink .style-btn, body.pink .rain-btn, body.pink .reward-btn { background:#c2185b; color:#fff; border-color:#c2185b; }
+    body.pink .download, body.pink .game, body.pink .log-btn, body.pink .style-btn, body.pink .rain-btn, body.pink .reward-btn, body.pink .msg-btn { background:#c2185b; color:#fff; border-color:#c2185b; }
     body.pink .style-select, body.pink .rain-select { background:#fff; border-color:#c2185b; }
     body.pink .style-select div, body.pink .rain-select div { color:#c2185b; }
     /* 海洋蓝 */
@@ -208,7 +259,7 @@
     body.ocean a { color:#0d47a1; }
     body.ocean .tip { color:#0d47a1; }
     body.ocean h1 { color:#0d47a1; text-shadow:none; }
-    body.ocean .download, body.ocean .game, body.ocean .log-btn, body.ocean .style-btn, body.ocean .rain-btn, body.ocean .reward-btn { background:#0d47a1; color:#fff; border-color:#0d47a1; }
+    body.ocean .download, body.ocean .game, body.ocean .log-btn, body.ocean .style-btn, body.ocean .rain-btn, body.ocean .reward-btn, body.ocean .msg-btn { background:#0d47a1; color:#fff; border-color:#0d47a1; }
     body.ocean .style-select, body.ocean .rain-select { background:#fff; border-color:#0d47a1; }
     body.ocean .style-select div, body.ocean .rain-select div { color:#0d47a1; }
     #logModal {
@@ -221,7 +272,7 @@
       justify-content:center;
       align-items:center;
     }
-    /* 新增赞赏弹窗样式 */
+    /* 赞赏弹窗样式 */
     #rewardModal {
       display:none;
       position:fixed;
@@ -231,6 +282,51 @@
       z-index:999;
       justify-content:center;
       align-items:center;
+    }
+    /* 留言弹窗样式 - 与更新日志UI统一 */
+    #msgModal {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      background:rgba(0,0,0,0.7);
+      z-index:999;
+      justify-content:center;
+      align-items:center;
+    }
+    /* 新增：管理员密码弹窗+后台弹窗样式 */
+    #adminPwdModal, #adminBackModal {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100vw; height:100vh;
+      background:rgba(0,0,0,0.85);
+      z-index:9999;
+      justify-content:center;
+      align-items:center;
+    }
+    /* 管理员密码弹窗容器 */
+    .admin-pwd-window {
+      width:90%;
+      max-width:400px;
+      background:#fff;
+      border-radius:16px;
+      padding:2rem;
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+      align-items:center;
+    }
+    /* 管理员后台弹窗容器 */
+    .admin-back-window {
+      width:90%;
+      max-width:900px;
+      height:85vh;
+      background:#fff;
+      border-radius:16px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
     }
     .log-window {
       width:90%;
@@ -242,7 +338,6 @@
       flex-direction:column;
       overflow:hidden;
     }
-    /* 赞赏弹窗容器 */
     .reward-window {
       width:90%;
       max-width:400px;
@@ -255,22 +350,24 @@
       align-items:center;
       overflow:hidden;
     }
-    .log-header {
+    .msg-window {
+      width:90%;
+      max-width:800px;
+      height:85vh;
+      background:#fff;
+      border-radius:16px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+    .log-header, .reward-header, .msg-header, .admin-pwd-header, .admin-back-header {
       padding:16px;
       font-size:22px;
       font-weight:bold;
       color:#000;
       text-align:center;
     }
-    /* 赞赏弹窗标题 */
-    .reward-header {
-      font-size:22px;
-      font-weight:bold;
-      color:#000;
-      margin-bottom:1rem;
-      text-align:center;
-    }
-    .log-line {
+    .log-line, .msg-line, .admin-back-line {
       height:2px;
       background:#000;
       margin:0 16px;
@@ -284,33 +381,102 @@
       overflow-y:auto;
       white-space:pre-wrap;
     }
-    /* 收款码图片样式 */
-    .reward-img {
+    .msg-content {
+      flex:1;
+      padding:20px;
+      font-size:16px;
+      color:#000;
+      line-height:1.6;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+    /* 管理员密码输入框 */
+    .admin-pwd-input {
       width:100%;
-      height:auto;
+      padding:12px 16px;
+      border:2px solid #000;
+      border-radius:8px;
+      font-size:18px;
+      font-family: Consolas, monospace;
+      outline:none;
+      text-align:center;
+    }
+    /* 管理员后台内容区 */
+    .admin-back-content {
+      flex:1;
+      padding:20px;
+      font-size:16px;
+      color:#000;
+      line-height:1.8;
+      overflow-y:auto;
+      white-space:pre-wrap;
+      background:#f9f9f9;
+      border:1px solid #eee;
+      margin:0 16px;
       border-radius:8px;
     }
-    .log-bottom {
+    /* 管理员后台底部按钮区 */
+    .admin-back-bottom {
+      padding:12px 16px;
+      border-top:2px solid #000;
+      text-align:center;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+    }
+    /* 管理员通用按钮 */
+    .admin-btn-common {
+      background:#000;
+      color:#fff;
+      font-size:16px;
+      padding:8px 24px;
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+    .msg-input {
+      width:100%;
+      padding:12px;
+      border:2px solid #000;
+      border-radius:6px;
+      font-size:16px;
+      font-family: Consolas, monospace;
+      outline:none;
+    }
+    .msg-textarea {
+      width:100%;
+      height:200px;
+      padding:12px;
+      border:2px solid #000;
+      border-radius:6px;
+      font-size:16px;
+      font-family: Consolas, monospace;
+      outline:none;
+      resize:none;
+    }
+    .msg-preview {
+      width:100%;
+      min-height:100px;
+      padding:12px;
+      border:2px solid #000;
+      border-radius:6px;
+      font-size:16px;
+      font-family: Consolas, monospace;
+      white-space:pre-wrap;
+    }
+    .log-bottom, .reward-bottom, .msg-bottom {
       padding:12px 16px;
       border-top:2px solid #000;
       text-align:center;
     }
-    /* 赞赏弹窗底部 */
-    .reward-bottom {
-      padding:1rem 0 0 0;
-      text-align:center;
+    .msg-bottom {
+      display:flex;
+      justify-content:center;
+      gap:16px;
     }
-    .close-btn {
-      background:#000;
-      color:#fff;
-      font-size:16px;
-      padding:8px 20px;
-      border:none;
-      border-radius:6px;
-      cursor:pointer;
-    }
-    /* 赞赏弹窗关闭按钮 */
-    .reward-close-btn {
+    .close-btn, .reward-close-btn, .msg-submit-btn, .msg-close-btn {
       background:#000;
       color:#fff;
       font-size:16px;
@@ -323,7 +489,10 @@
 </head>
 <body class="hacker">
 <canvas id="matrix"></canvas>
-<h1>吱吱的妙妙工具页🔧V7.3</h1>
+<h1>吱吱的妙妙工具页🔧V7.4</h1>
+<!-- 新增：管理员后台按钮，放在V7.3标题正下方，高级样式 -->
+<div class="admin-btn" onclick="openAdminPwd()">🔧 管理员后台</div>
+
 <div class="box" style="text-align:center; font-size:16px; font-weight:bold;">
   请使用 Win10 以上系统打开，或使用最新版 Microsoft Edge 浏览器
 </div>
@@ -335,10 +504,10 @@
     吱吱已免费开源，网页投稿制作找我
   </div>
   <div class="item">
-    <strong>QQ:1599785841   VX:KLDLZ666888  吱吱NB</strong>
-    <button class="log-btn" onclick="openLog()">更新日志（看一下吧）(最高纪录:1天5版本)</button>
-    <!-- 新增赞赏按钮 - 放在更新日志右侧 -->
+    <strong>QQ: 1599785841  VX:KLDLZ666888  吱吱NB</strong>
+    <button class="log-btn" onclick="openLog()">更新日志（看一下吧）(最高纪录:1天6版本)</button>
     <button class="reward-btn" onclick="openReward()">赞赏</button>
+    <button class="msg-btn" onclick="openMsg()">留言</button>
     <div class="style-wrap">
       <button class="style-btn" onclick="toggleStyleSelect()">UI风格 ▼</button>
       <div class="style-select" id="styleList">
@@ -407,11 +576,16 @@
   <div class="download" onclick="downloadAdvanced()">加强版（测试）</div>
   <div class="download" onclick="downloadRestore()">恢复极域</div>
 </div>
+<!-- 更新日志弹窗 -->
 <div id="logModal">
   <div class="log-window">
     <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
     <div class="log-content">
+2026-03-16 02:11:41  V7.3
+✅新增留言功能（管理员后台可查看）(一天6个版本，燃成灰烬)
+OS:燃...燃尽了
+
 2026-03-16 02:11:41  V7.3
 ✅新增赞赏功能(一天5个版本，燃成舍利子)
 OS:燃...燃尽了
@@ -461,7 +635,7 @@ WIN7 代码雨异常与UI异常暂未修复
     </div>
   </div>
 </div>
-<!-- 新增赞赏弹窗 - 已填入你的收款码链接 -->
+<!-- 赞赏弹窗 -->
 <div id="rewardModal">
   <div class="reward-window">
     <div class="reward-header">✨ 感谢大佬的赞赏 ✨</div>
@@ -471,6 +645,48 @@ WIN7 代码雨异常与UI异常暂未修复
     </div>
   </div>
 </div>
+<!-- 留言弹窗 -->
+<div id="msgModal">
+  <div class="msg-window">
+    <div class="msg-header">✍️ 吱吱留言系统</div>
+    <div class="msg-line"></div>
+    <div class="msg-content">
+      <label><strong>投稿人：</strong></label>
+      <input type="text" class="msg-input" id="msgAuthor" placeholder="请输入你的昵称/ID（必填）">
+      <label><strong>留言正文：</strong></label>
+      <textarea class="msg-textarea" id="msgContent" placeholder="请输入你的留言内容（必填）"></textarea>
+      <label><strong>留言预览（含自动时间戳）：</strong></label>
+      <div class="msg-preview" id="msgPreview">请输入投稿人和留言内容，自动生成预览...</div>
+    </div>
+    <div class="msg-bottom">
+      <button class="msg-submit-btn" onclick="submitMsg()">提交留言</button>
+      <button class="msg-close-btn" onclick="closeMsg()">关闭</button>
+    </div>
+  </div>
+</div>
+<!-- 新增：管理员密码验证弹窗 -->
+<div id="adminPwdModal">
+  <div class="admin-pwd-window">
+    <div class="admin-pwd-header">🔐 管理员密码验证</div>
+    <input type="password" class="admin-pwd-input" id="adminPwd" placeholder="请输入管理员密码">
+    <button class="admin-btn-common" onclick="checkAdminPwd()">验证进入</button>
+    <button class="admin-btn-common" onclick="closeAdminPwd()">取消</button>
+  </div>
+</div>
+<!-- 新增：管理员后台弹窗（查看/清空留言） -->
+<div id="adminBackModal">
+  <div class="admin-back-window">
+    <div class="admin-back-header">📊 吱吱留言管理后台</div>
+    <div class="admin-back-line"></div>
+    <div class="admin-back-content" id="adminMsgContent">暂无用户留言...</div>
+    <div class="admin-back-bottom">
+      <button class="admin-btn-common" onclick="refreshAdminMsg()">刷新留言</button>
+      <button class="admin-btn-common" onclick="clearAdminMsg()">清空所有留言</button>
+      <button class="admin-btn-common" onclick="closeAdminBack()">关闭后台</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const originalCode = `
 Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
@@ -528,7 +744,7 @@ function downloadRestore() {
   a.download = '恢复极域（重新连回去）.bat';
   a.click(); URL.revokeObjectURL(url);
 }
-// ====================== 只改这里：代码雨恢复初版，其他完全不变 ======================
+// 代码雨核心逻辑（完全未改）
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 function resizeCanvas() {
@@ -537,13 +753,10 @@ function resizeCanvas() {
 }
 resizeCanvas();
 window.addEventListener('resize', resizeCanvas);
-// 原版代码雨配置
 const drops = Array(Math.floor(canvas.width / 14)).fill(1);
 let mode = "code";
 let fallText = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
-// 星月不变
 const starMoon = ["⭐","🌙","✨"];
-// 飘落粒子（星月/自定义/吱吱 完全不动）
 const items = [];
 for(let i=0;i<80;i++){
   items.push({
@@ -552,7 +765,6 @@ for(let i=0;i<80;i++){
     vy: 4 + Math.random()*1.5
   });
 }
-// 切换下拉
 function toggleStyleSelect(){
   const s = document.getElementById("styleList");
   s.style.display = s.style.display=="block"?"none":"block";
@@ -563,12 +775,10 @@ function toggleRainSelect(){
   r.style.display = r.style.display=="block"?"none":"block";
   document.getElementById("styleList").style.display="none";
 }
-// 切换风格
 function setSkin(cls) {
   document.body.className = cls;
   document.getElementById("styleList").style.display="none";
 }
-// 切换雨滴
 function setRainType(t) {
   if(t==="code"){
     mode="code";
@@ -584,17 +794,14 @@ function setRainType(t) {
   }
   document.getElementById("rainList").style.display="none";
 }
-// 颜色适配
 function getColor() {
   if(document.body.classList.contains("bw")) return "#ffffff";
   if(document.body.classList.contains("pink")) return "#c2185b";
   if(document.body.classList.contains("ocean")) return "#0d47a1";
   return "#0f0";
 }
-// 绘制：代码雨 = 原版；其他 = 你现在的完美效果
 function draw() {
   if(mode === "code"){
-    // 原版代码雨（带拖影）
     ctx.fillStyle = 'rgba(0,0,0,0.05)';
     ctx.fillRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = getColor();
@@ -606,7 +813,6 @@ function draw() {
       drops[i]++;
     }
   }else{
-    // 星月/自定义/吱吱 完全不变
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.fillStyle = getColor();
     ctx.font = "20px Consolas";
@@ -618,12 +824,105 @@ function draw() {
   }
 }
 setInterval(draw, 30);
-// 日志
+// 原有日志/赞赏/留言逻辑（完全未改）
 function openLog() { document.getElementById('logModal').style.display = 'flex'; }
 function closeLog() { document.getElementById('logModal').style.display = 'none'; }
-// 新增赞赏弹窗JS函数
 function openReward() { document.getElementById('rewardModal').style.display = 'flex'; }
 function closeReward() { document.getElementById('rewardModal').style.display = 'none'; }
+function openMsg() { 
+  document.getElementById('msgModal').style.display = 'flex';
+  const authorInput = document.getElementById('msgAuthor');
+  const contentInput = document.getElementById('msgContent');
+  const preview = document.getElementById('msgPreview');
+  authorInput.addEventListener('input', updateMsgPreview);
+  contentInput.addEventListener('input', updateMsgPreview);
+}
+function closeMsg() { 
+  document.getElementById('msgModal').style.display = 'none';
+  document.getElementById('msgAuthor').value = '';
+  document.getElementById('msgContent').value = '';
+  document.getElementById('msgPreview').innerText = '请输入投稿人和留言内容，自动生成预览...';
+}
+function updateMsgPreview() {
+  const author = document.getElementById('msgAuthor').value.trim();
+  const content = document.getElementById('msgContent').value.trim();
+  const preview = document.getElementById('msgPreview');
+  if (!author && !content) {
+    preview.innerText = '请输入投稿人和留言内容，自动生成预览...';
+    return;
+  }
+  const now = new Date();
+  const time = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,0)}-${now.getDate().toString().padStart(2,0)} ${now.getHours().toString().padStart(2,0)}:${now.getMinutes().toString().padStart(2,0)}:${now.getSeconds().toString().padStart(2,0)}`;
+  preview.innerText = `投稿人：${author || '匿名'}\n留言时间：${time}\n留言内容：\n${content || '暂无内容'}`;
+}
+function submitMsg() {
+  const author = document.getElementById('msgAuthor').value.trim();
+  const content = document.getElementById('msgContent').value.trim();
+  if (!author || !content) {
+    alert('投稿人和留言内容均为必填，请填写完整！');
+    return;
+  }
+  const now = new Date();
+  const time = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,0)}-${now.getDate().toString().padStart(2,0)} ${now.getHours().toString().padStart(2,0)}:${now.getMinutes().toString().padStart(2,0)}:${now.getSeconds().toString().padStart(2,0)}`;
+  const finalMsg = `投稿人：${author}\n留言时间：${time}\n留言内容：${content}\n=====================\n`;
+  let msgs = localStorage.getItem('zhizhiMsgList') || '';
+  msgs += finalMsg;
+  localStorage.setItem('zhizhiMsgList', msgs);
+  alert('留言提交成功！感谢你的留言～');
+  closeMsg();
+}
+
+// ====================== 新增：管理员后台核心逻辑 ======================
+// 管理员默认密码（可自行修改！！！）
+const ADMIN_PASSWORD = 'zhizhiNB666';
+// 打开密码验证弹窗
+function openAdminPwd() {
+  document.getElementById('adminPwdModal').style.display = 'flex';
+  document.getElementById('adminPwd').value = ''; // 清空密码框
+}
+// 关闭密码验证弹窗
+function closeAdminPwd() {
+  document.getElementById('adminPwdModal').style.display = 'none';
+}
+// 验证管理员密码
+function checkAdminPwd() {
+  const inputPwd = document.getElementById('adminPwd').value.trim();
+  if (inputPwd === ADMIN_PASSWORD) {
+    closeAdminPwd(); // 关闭密码弹窗
+    openAdminBack(); // 打开管理员后台
+  } else {
+    alert('❌ 密码错误！请重新输入');
+    document.getElementById('adminPwd').value = '';
+    document.getElementById('adminPwd').focus();
+  }
+}
+// 打开管理员后台
+function openAdminBack() {
+  document.getElementById('adminBackModal').style.display = 'flex';
+  refreshAdminMsg(); // 打开即刷新留言
+}
+// 关闭管理员后台
+function closeAdminBack() {
+  document.getElementById('adminBackModal').style.display = 'none';
+}
+// 刷新留言列表
+function refreshAdminMsg() {
+  const msgs = localStorage.getItem('zhizhiMsgList') || '';
+  const msgContent = document.getElementById('adminMsgContent');
+  if (msgs.trim() === '') {
+    msgContent.innerText = '📭 暂无用户提交的留言...';
+  } else {
+    msgContent.innerText = `📊 共收到 ${msgs.split('=====================').length-1} 条留言\n\n${msgs}`;
+  }
+}
+// 清空所有留言（带二次确认）
+function clearAdminMsg() {
+  if (confirm('⚠️ 确定要清空所有用户留言吗？此操作不可恢复！')) {
+    localStorage.removeItem('zhizhiMsgList');
+    refreshAdminMsg();
+    alert('✅ 所有留言已成功清空！');
+  }
+}
 </script>
 </body>
 </html>
