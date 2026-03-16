@@ -32,7 +32,7 @@
       margin-bottom:0.5rem;
       text-shadow:0 0 10px #0f0;
     }
-    /* 新增：管理员按钮高级样式 */
+    /* 管理员按钮高级样式 */
     .admin-btn {
       display:block;
       width:180px;
@@ -294,7 +294,7 @@
       justify-content:center;
       align-items:center;
     }
-    /* 新增：管理员密码弹窗+后台弹窗样式 */
+    /* 管理员密码弹窗+后台弹窗样式 */
     #adminPwdModal, #adminBackModal {
       display:none;
       position:fixed;
@@ -402,7 +402,7 @@
       outline:none;
       text-align:center;
     }
-    /* 管理员后台内容区 */
+    /* 管理员后台内容区 - 新增单条留言样式 */
     .admin-back-content {
       flex:1;
       padding:20px;
@@ -410,11 +410,35 @@
       color:#000;
       line-height:1.8;
       overflow-y:auto;
-      white-space:pre-wrap;
       background:#f9f9f9;
       border:1px solid #eee;
       margin:0 16px;
       border-radius:8px;
+    }
+    /* 单条留言容器 - 关键样式 */
+    .msg-item {
+      position:relative;
+      padding:12px;
+      border:1px solid #eee;
+      border-radius:6px;
+      background:#fff;
+      margin-bottom:10px;
+    }
+    /* 垃圾桶图标样式 - 淡灰色，hover变红 */
+    .del-msg-btn {
+      position:absolute;
+      top:50%;
+      right:12px;
+      transform:translateY(-50%);
+      color:#ccc;
+      font-size:18px;
+      cursor:pointer;
+      border:none;
+      background:transparent;
+      padding:4px;
+    }
+    .del-msg-btn:hover {
+      color:#ff4444;
     }
     /* 管理员后台底部按钮区 */
     .admin-back-bottom {
@@ -490,8 +514,7 @@
 <body class="hacker">
 <canvas id="matrix"></canvas>
 <h1>吱吱的妙妙工具页🔧V7.4</h1>
-<!-- 新增：管理员后台按钮，放在V7.3标题正下方，高级样式 -->
-<div class="admin-btn" onclick="openAdminPwd()">🔧 管理员后台</div>
+<div class="admin-btn" onclick="openAdminPwd()">🔧 管理员后台(看留言)</div>
 
 <div class="box" style="text-align:center; font-size:16px; font-weight:bold;">
   请使用 Win10 以上系统打开，或使用最新版 Microsoft Edge 浏览器
@@ -504,7 +527,7 @@
     吱吱已免费开源，网页投稿制作找我
   </div>
   <div class="item">
-    <strong>QQ: 1599785841  VX:KLDLZ666888  吱吱NB</strong>
+    <strong>QQ:1599785841   VX:KLDLZ666888  吱吱NB</strong>
     <button class="log-btn" onclick="openLog()">更新日志（看一下吧）(最高纪录:1天6版本)</button>
     <button class="reward-btn" onclick="openReward()">赞赏</button>
     <button class="msg-btn" onclick="openMsg()">留言</button>
@@ -582,10 +605,10 @@
     <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
     <div class="log-content">
-2026-03-16 02:11:41  V7.3
-✅新增留言功能（管理员后台可查看）(一天6个版本，燃成灰烬)
-OS:燃...燃尽了
-
+2026-03-16 22:38:10  V7.4
+✅新增留言功能(一天6个版本，燃成灰)
+OS:燃...燃没了
+      
 2026-03-16 02:11:41  V7.3
 ✅新增赞赏功能(一天5个版本，燃成舍利子)
 OS:燃...燃尽了
@@ -664,7 +687,7 @@ WIN7 代码雨异常与UI异常暂未修复
     </div>
   </div>
 </div>
-<!-- 新增：管理员密码验证弹窗 -->
+<!-- 管理员密码验证弹窗 -->
 <div id="adminPwdModal">
   <div class="admin-pwd-window">
     <div class="admin-pwd-header">🔐 管理员密码验证</div>
@@ -673,7 +696,7 @@ WIN7 代码雨异常与UI异常暂未修复
     <button class="admin-btn-common" onclick="closeAdminPwd()">取消</button>
   </div>
 </div>
-<!-- 新增：管理员后台弹窗（查看/清空留言） -->
+<!-- 管理员后台弹窗（查看/单删/清空留言） -->
 <div id="adminBackModal">
   <div class="admin-back-window">
     <div class="admin-back-header">📊 吱吱留言管理后台</div>
@@ -872,7 +895,7 @@ function submitMsg() {
   closeMsg();
 }
 
-// ====================== 新增：管理员后台核心逻辑 ======================
+// 管理员后台核心逻辑（新增单条删除功能）
 // 管理员默认密码（可自行修改！！！）
 const ADMIN_PASSWORD = 'zhizhiNB666';
 // 打开密码验证弹窗
@@ -905,17 +928,54 @@ function openAdminBack() {
 function closeAdminBack() {
   document.getElementById('adminBackModal').style.display = 'none';
 }
-// 刷新留言列表
+// 刷新留言列表 - 重写为渲染带删除按钮的DOM结构
 function refreshAdminMsg() {
-  const msgs = localStorage.getItem('zhizhiMsgList') || '';
+  const msgsStr = localStorage.getItem('zhizhiMsgList') || '';
   const msgContent = document.getElementById('adminMsgContent');
-  if (msgs.trim() === '') {
-    msgContent.innerText = '📭 暂无用户提交的留言...';
-  } else {
-    msgContent.innerText = `📊 共收到 ${msgs.split('=====================').length-1} 条留言\n\n${msgs}`;
+  // 清空内容区
+  msgContent.innerHTML = '';
+  // 无留言时提示
+  if (!msgsStr.trim()) {
+    msgContent.innerHTML = '<div style="text-align:center; color:#999; padding:20px 0;">📭 暂无用户提交的留言...</div>';
+    return;
   }
+  // 分割留言（排除最后一个空元素）
+  const msgList = msgsStr.split('=====================\n').filter(item => item.trim());
+  // 渲染统计标题
+  const title = document.createElement('div');
+  title.style.marginBottom = '15px';
+  title.style.fontWeight = 'bold';
+  title.innerText = `📊 共收到 ${msgList.length} 条留言`;
+  msgContent.appendChild(title);
+  // 循环渲染每条留言
+  msgList.forEach((msg, index) => {
+    const msgItem = document.createElement('div');
+    msgItem.className = 'msg-item';
+    msgItem.innerHTML = `
+      <div style="white-space:pre-wrap;">${msg}</div>
+      <button class="del-msg-btn" onclick="deleteSingleMsg(${index})" title="删除此条留言">🗑️</button>
+    `;
+    msgContent.appendChild(msgItem);
+  });
 }
-// 清空所有留言（带二次确认）
+// 单条删除留言 - 核心新功能
+function deleteSingleMsg(index) {
+  // 二级确认弹窗
+  if (!confirm('⚠️ 确定要删除此条留言吗？此操作不可恢复！')) {
+    return;
+  }
+  const msgsStr = localStorage.getItem('zhizhiMsgList') || '';
+  const msgList = msgsStr.split('=====================\n').filter(item => item.trim());
+  // 删除指定索引的留言
+  msgList.splice(index, 1);
+  // 重新拼接留言并保存
+  const newMsgsStr = msgList.join('=====================\n') + (msgList.length > 0 ? '=====================\n' : '');
+  localStorage.setItem('zhizhiMsgList', newMsgsStr);
+  // 刷新留言列表
+  refreshAdminMsg();
+  alert('✅ 单条留言已成功删除！');
+}
+// 清空所有留言（保留原有功能，加二次确认）
 function clearAdminMsg() {
   if (confirm('⚠️ 确定要清空所有用户留言吗？此操作不可恢复！')) {
     localStorage.removeItem('zhizhiMsgList');
@@ -924,5 +984,8 @@ function clearAdminMsg() {
   }
 }
 </script>
+</body>
+</html>
+
 </body>
 </html>
