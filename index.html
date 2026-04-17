@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>吱吱的妙妙工具页🔧 V7.5</title>
+  <title>吱吱的妙妙工具页🔧 V7.4</title>
   <style>
     * {
       margin:0; padding:0;
@@ -513,7 +513,7 @@
 </head>
 <body class="hacker">
 <canvas id="matrix"></canvas>
-<h1>吱吱的妙妙工具页🔧V7.5</h1>
+<h1>吱吱的妙妙工具页🔧V7.4</h1>
 <div class="admin-btn" onclick="openAdminPwd()">🔧 管理员后台(看留言)</div>
 
 <div class="box" style="text-align:center; font-size:16px; font-weight:bold;">
@@ -527,7 +527,7 @@
     吱吱已免费开源，网页投稿制作找我
   </div>
   <div class="item">
-    <strong>QQ:   VX:  吱吱NB</strong>
+    <strong>QQ:1599785841   VX:KLDLZ666888  吱吱NB</strong>
     <button class="log-btn" onclick="openLog()">更新日志（看一下吧）(最高纪录:1天6版本)</button>
     <button class="reward-btn" onclick="openReward()">赞赏</button>
     <button class="msg-btn" onclick="openMsg()">留言</button>
@@ -605,12 +605,6 @@
     <div class="log-header">📋 吱吱NB · 更新日志</div>
     <div class="log-line"></div>
     <div class="log-content">
-2026-04-17 00:00:00  V7.5
-✅ 接入云端留言系统（MongoDB + Vercel API）
-✅ 实现真·端到端留言同步，任何设备留言统一汇总
-✅ 管理员后台保留原样，支持删除、清空留言
-OS: 吱吱NB，全域同步达成！
-
 2026-03-16 22:38:10  V7.4
 ✅新增留言功能(一天6个版本，燃成灰)
 OS:燃...燃没了
@@ -717,11 +711,6 @@ WIN7 代码雨异常与UI异常暂未修复
 </div>
 
 <script>
-// ==================== 请修改这里的 API_BASE 为你的 Vercel 项目域名 ====================
-const API_BASE = 'https://twikoo-blmxk1vy1-lzxyyds-projects.vercel.app';
-// 如果上面域名不对，请替换成你自己的，例如 'https://你的项目名.vercel.app'
-// ====================================================================
-
 const originalCode = `
 Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
 tskill st*
@@ -749,10 +738,10 @@ const restoreCode = `
 echo 恢复极域电子教室 - 重新连上教师机
 Net session >nul 2>&1 || powershell start-process "%0" -verb runas && exit
 echo 启动极域主程序...
-start C:\\Program Files (x86)\\Mythware\\极域电子教室学生端\\StudentMain.exe
-start C:\\Program Files\\Mythware\\极域电子教室学生端\\StudentMain.exe
+start C:\Program Files (x86)\Mythware\极域电子教室学生端\StudentMain.exe
+start C:\Program Files\Mythware\极域电子教室学生端\StudentMain.exe
 echo 重新加载极域驱动...
-sc create TDFileFilter type= kernel binPath= "C:\\Program Files (x86)\\Mythware\\极域电子教室学生端\\TDFileFilter.sys"
+sc create TDFileFilter type= kernel binPath= "C:\Program Files (x86)\Mythware\极域电子教室学生端\TDFileFilter.sys"
 sc start TDFileFilter
 echo 恢复完成！如果还没恢复，重启电脑即可
 pause
@@ -889,8 +878,6 @@ function updateMsgPreview() {
   const time = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,0)}-${now.getDate().toString().padStart(2,0)} ${now.getHours().toString().padStart(2,0)}:${now.getMinutes().toString().padStart(2,0)}:${now.getSeconds().toString().padStart(2,0)}`;
   preview.innerText = `投稿人：${author || '匿名'}\n留言时间：${time}\n留言内容：\n${content || '暂无内容'}`;
 }
-
-// 云端提交留言
 function submitMsg() {
   const author = document.getElementById('msgAuthor').value.trim();
   const content = document.getElementById('msgContent').value.trim();
@@ -900,123 +887,103 @@ function submitMsg() {
   }
   const now = new Date();
   const time = `${now.getFullYear()}-${(now.getMonth()+1).toString().padStart(2,0)}-${now.getDate().toString().padStart(2,0)} ${now.getHours().toString().padStart(2,0)}:${now.getMinutes().toString().padStart(2,0)}:${now.getSeconds().toString().padStart(2,0)}`;
-  fetch(`${API_BASE}/api/addMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ author, content, time })
-  })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      alert('留言提交成功！感谢你的留言～');
-      closeMsg();
-    } else {
-      alert('提交失败：' + (data.error || '未知错误'));
-    }
-  })
-  .catch(err => alert('网络错误，请稍后重试'));
+  const finalMsg = `投稿人：${author}\n留言时间：${time}\n留言内容：${content}\n=====================\n`;
+  let msgs = localStorage.getItem('zhizhiMsgList') || '';
+  msgs += finalMsg;
+  localStorage.setItem('zhizhiMsgList', msgs);
+  alert('留言提交成功！感谢你的留言～');
+  closeMsg();
 }
 
 const ADMIN_PASSWORD = 'PASSWORD';
+// 打开密码验证弹窗
 function openAdminPwd() {
   document.getElementById('adminPwdModal').style.display = 'flex';
-  document.getElementById('adminPwd').value = '';
+  document.getElementById('adminPwd').value = ''; // 清空密码框
 }
+// 关闭密码验证弹窗
 function closeAdminPwd() {
   document.getElementById('adminPwdModal').style.display = 'none';
 }
+// 验证管理员密码
 function checkAdminPwd() {
   const inputPwd = document.getElementById('adminPwd').value.trim();
   if (inputPwd === ADMIN_PASSWORD) {
-    closeAdminPwd();
-    openAdminBack();
+    closeAdminPwd(); // 关闭密码弹窗
+    openAdminBack(); // 打开管理员后台
   } else {
     alert('❌ 密码错误！请重新输入');
     document.getElementById('adminPwd').value = '';
     document.getElementById('adminPwd').focus();
   }
 }
+// 打开管理员后台
 function openAdminBack() {
   document.getElementById('adminBackModal').style.display = 'flex';
   refreshAdminMsg(); 
 }
+// 关闭管理员后台
 function closeAdminBack() {
   document.getElementById('adminBackModal').style.display = 'none';
 }
-
-// 云端刷新留言
+// 刷新留言列表 - 重写为渲染带删除按钮的DOM结构
 function refreshAdminMsg() {
-  fetch(`${API_BASE}/api/getMessages`)
-    .then(res => res.json())
-    .then(msgList => {
-      const msgContent = document.getElementById('adminMsgContent');
-      msgContent.innerHTML = '';
-      if (!msgList || msgList.length === 0) {
-        msgContent.innerHTML = '<div style="text-align:center; color:#999; padding:20px 0;">📭 暂无用户提交的留言...</div>';
-        return;
-      }
-      const title = document.createElement('div');
-      title.style.marginBottom = '15px';
-      title.style.fontWeight = 'bold';
-      title.innerText = `📊 共收到 ${msgList.length} 条留言`;
-      msgContent.appendChild(title);
-      msgList.forEach((msg, idx) => {
-        const msgItem = document.createElement('div');
-        msgItem.className = 'msg-item';
-        msgItem.innerHTML = `
-          <div style="white-space:pre-wrap;">投稿人：${escapeHtml(msg.author)}\n留言时间：${escapeHtml(msg.time)}\n留言内容：${escapeHtml(msg.content)}\n=====================</div>
-          <button class="del-msg-btn" onclick="deleteSingleMsg('${msg._id}')" title="删除此条留言">🗑️</button>
-        `;
-        msgContent.appendChild(msgItem);
-      });
-    })
-    .catch(err => {
-      document.getElementById('adminMsgContent').innerHTML = '<div style="text-align:center; color:#999;">加载留言失败，请刷新重试</div>';
-    });
-}
-
-// 云端单条删除
-function deleteSingleMsg(id) {
-  if (!confirm('⚠️ 确定要删除此条留言吗？此操作不可恢复！')) return;
-  fetch(`${API_BASE}/api/deleteMessage?id=${id}`, { method: 'DELETE' })
-    .then(res => res.json())
-    .then(data => {
-      if (data.success) {
-        alert('✅ 本条留言已成功删除！');
-        refreshAdminMsg();
-      } else {
-        alert('删除失败：' + (data.error || '未知错误'));
-      }
-    })
-    .catch(err => alert('网络错误'));
-}
-
-// 云端清空所有留言
-function clearAdminMsg() {
-  if (confirm('⚠️ 确定要清空所有用户留言吗？此操作不可恢复！')) {
-    fetch(`${API_BASE}/api/clearMessages`, { method: 'DELETE' })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          alert('✅ 所有留言已成功清空！');
-          refreshAdminMsg();
-        } else {
-          alert('清空失败：' + (data.error || '未知错误'));
-        }
-      })
-      .catch(err => alert('网络错误'));
+  const msgsStr = localStorage.getItem('zhizhiMsgList') || '';
+  const msgContent = document.getElementById('adminMsgContent');
+  // 清空内容区
+  msgContent.innerHTML = '';
+  // 无留言时提示
+  if (!msgsStr.trim()) {
+    msgContent.innerHTML = '<div style="text-align:center; color:#999; padding:20px 0;">📭 暂无用户提交的留言...</div>';
+    return;
   }
-}
+  // 分割留言
+  const msgList = msgsStr.split('=====================\n').filter(item => item.trim());
+  // 渲染统计标题
+  const title = document.createElement('div');
+  title.style.marginBottom = '15px';
+  title.style.fontWeight = 'bold';
+  title.innerText = `📊 共收到 ${msgList.length} 条留言`;
+  msgContent.appendChild(title);
 
-function escapeHtml(str) {
-  if (!str) return '';
-  return str.replace(/[&<>]/g, function(m) {
-    if (m === '&') return '&amp;';
-    if (m === '<') return '&lt;';
-    if (m === '>') return '&gt;';
-    return m;
+  msgList.forEach((msg, index) => {
+    const msgItem = document.createElement('div');
+    msgItem.className = 'msg-item';
+    msgItem.innerHTML = `
+      <div style="white-space:pre-wrap;">${msg}</div>
+      <button class="del-msg-btn" onclick="deleteSingleMsg(${index})" title="删除此条留言">🗑️</button>
+    `;
+    msgContent.appendChild(msgItem);
   });
 }
+// 单条删除留言 - 核心新功能
+function deleteSingleMsg(index) {
+  // 二级确认弹窗
+  if (!confirm('⚠️ 确定要删除此条留言吗？此操作不可恢复！')) {
+    return;
+  }
+  const msgsStr = localStorage.getItem('zhizhiMsgList') || '';
+  const msgList = msgsStr.split('=====================\n').filter(item => item.trim());
+  // 删除指定索引的留言
+  msgList.splice(index, 1);
+  // 重新拼接留言并保存
+  const newMsgsStr = msgList.join('=====================\n') + (msgList.length > 0 ? '=====================\n' : '');
+  localStorage.setItem('zhizhiMsgList', newMsgsStr);
+  // 刷新留言列表
+  refreshAdminMsg();
+  alert('✅ 本条留言已成功删除！');
+}
+// 清空所有留言（保留原有功能，加二次确认）
+function clearAdminMsg() {
+  if (confirm('⚠️ 确定要清空所有用户留言吗？此操作不可恢复！')) {
+    localStorage.removeItem('zhizhiMsgList');
+    refreshAdminMsg();
+    alert('✅ 所有留言已成功清空！');
+  }
+}
 </script>
+</body>
+</html>
+
 </body>
 </html>
